@@ -1,29 +1,29 @@
-.row{
+.row {
 
-    color:azure;
+    color: azure;
     display: flex;
-    
+
 }
+
 .navbar {
-    margin-left: 50px;
-    width: 100%;
     position: -webkit-sticky;
     position: sticky;
     top: 0;
     left: 0;
     background-color: #fff;
- 
-    font-family: open sans,sans-serif;
+
+    font-family: open sans, sans-serif;
     font-size: 14px;
     line-height: 22px;
     color: #26374c;
     border-bottom: 1px solid #dbe1ea;
-    box-shadow: 0 5px 10px rgba(0,0,0,.05);
-    
+    box-shadow: 0 5px 10px rgba(0, 0, 0, .05);
+
 }
-.navbar-nav{
+
+.navbar-nav {
     background: #fff;
-        height: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     width: 100%;
@@ -35,49 +35,51 @@
     box-sizing: border-box;
 }
 
-.nav-link
-{
-   color: #26374c;;
-   text-wrap:unset;
-   font-family: "open sans", sans-serif;
-   font-size: medium;
-   font-weight: 600;
+.nav-link {
+    color: #26374c;
+    ;
+    text-wrap: unset;
+    font-family: "open sans", sans-serif;
+    font-size: medium;
+    font-weight: 600;
 }
-.nav-link:hover
-{
+
+.nav-link:hover {
     color: beige;
     background-color: rgb(220, 215, 224);
 }
-.nav-item
-{
- margin: 10px;
- padding: 20px 20px 19px;
+
+.nav-item {
+    margin: 10px;
+    padding: 20px 20px 19px;
 }
 
-.table
-{
- 
+.table {
     text-align: center;
-   
-  
 }
-.table_head{
+
+.table_head {
     justify-content: center;
 }
 
-.table td {
-    text-align: center;
-    width:45px;
-    height:45px;   
- }
 
-
- table-body{
+table-body {
     border-bottom: 1px solid #ebeef2;
-    
-   
-
 }
 
+#table-body div{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
 
+#table-body td{
+    height: 50px;
+}
 
+#table-body img{
+    height: 50px;
+    width: 50px;
+}

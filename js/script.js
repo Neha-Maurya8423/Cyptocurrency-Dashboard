@@ -34,13 +34,13 @@
         console.log(data);
 
         for (let i in data) {
-          document.querySelector(
-            ".table-head"
-          ).innerHTML += `<tr><td> ${data[i].name }</td><td><img  class="currency_symbol" src="${data[i].image }"></td><td> ${data[i].max_supply
-          }</td></td><td> ${data[i].current_price
-          }</td></td><td> ${data[i].price_change_24h
-          }</td><td> ${data[i].price_change_percentage_24h
-          }</td>price_change_percentage_24h
+          document.getElementById("table-body").innerHTML += `<tr>
+            <td> <div>${data[i].name }</div></td>
+            <td><img  class="img-fluid currency_symbol" src="${data[i].image }"></td>
+            <td> <div> ${data[i].max_supply} </div> </td>
+            <td> <div> ${data[i].current_price} </div> </td>
+            <td> <div> ${data[i].price_change_24h} </div> </td>
+            <td> <div> ${data[i].price_change_percentage_24h} </div> </td>
           </tr>`;
         }
         console.log(data);
