@@ -1,4 +1,6 @@
 function tableData(sortedData) {
+  let table_rows = ""
+
   for (let i in sortedData) {
     let color;
     let change = parseFloat(sortedData[i].price_change_24h).toFixed(2);
@@ -17,37 +19,68 @@ function tableData(sortedData) {
             <td> <div> ${sortedData[i].current_price} </div> </td>
             <td> <div class="sortedData_color  ${color}">&nbsp${change}(${percentage} %)</div> </td> 
           </tr>`;
-    document.getElementById("table-body").innerHTML += table_row;
+    table_rows += table_row
   }
+  document.getElementById("table-body").innerHTML = table_rows;
 }
-function sortDataByPercentageChange(data) {
-  for (let i = 0; i < data.length; i++) {
-    for (let j = 1; j < data.length - 1; j++) {
-      if (
-        data[j].price_change_percentage_24h <
-        data[j - 1].price_change_percentage_24h
-      ) {
-        let temp = data[j - 1];
-        data[j - 1] = data[j];
-        data[j] = temp;
+
+function sortDataByPercentageChange(type, currency_data, sortBy = true) {
+  for (let i = 0; i < currency_data.length; i++) {
+    for (let j = 1; j < currency_data.length; j++) {
+      if (sortBy) {
+        if (currency_data[j][type] > currency_data[j - 1][type]) {
+          let temp = currency_data[j - 1];
+          currency_data[j - 1] = currency_data[j];
+          currency_data[j] = temp;
+        }
       }
+      else {
+        if (currency_data[j][type] < currency_data[j - 1][type]) {
+          let temp = currency_data[j - 1];
+          currency_data[j - 1] = currency_data[j];
+          currency_data[j] = temp;
+        }
+      }
+
     }
   }
-  return data;
+  return currency_data;
 }
-function fetchData() {
+
+
+async function fetchData() {
   let apiUrl = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr`;
-  fetch(apiUrl)
-    .then((response) => {
-      return response.json();
-    })
-    .then((data) => {
-      const sortedData = sortDataByPercentageChange(data);
-      tableData(sortedData);
-      console.log(data);
-    })
-    .catch((error) => {
-      console.error("Error fetching currency data:", error);
-    });
+  const response = await fetch(apiUrl)
+  return response.json()
 }
-      fetchData();
+
+var currency_data;
+async function loadData(type = undefined, sortBy = true) {
+  console.log(currency_data)
+  if (!currency_data) {
+    //to cache the response of API
+    currency_data = await fetchData();
+  }
+
+  if (type) {
+    currency_data = sortDataByPercentageChange(type, currency_data, sortBy);
+  }
+
+  tableData(currency_data);
+}
+
+document.addEventListener("DOMContentLoaded", function (event) {
+  loadData();
+});
+
+document.getElementById("price-up-arrow").addEventListener("click", function (event) {
+  document.getElementById("price-up-arrow").style.display = "none"
+  document.getElementById("price-down-arrow").style.display = "unset"
+  loadData("price_change_percentage_24h");
+});
+
+document.getElementById("price-down-arrow").addEventListener("click", function (event) {
+  document.getElementById("price-up-arrow").style.display = "unset"
+  document.getElementById("price-down-arrow").style.display = "none"
+  loadData("price_change_percentage_24h", false);
+});
