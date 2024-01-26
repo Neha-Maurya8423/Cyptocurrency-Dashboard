@@ -83,3 +83,16 @@ table-body {
     height: 50px;
     width: 50px;
 }
+
+#pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+#pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}

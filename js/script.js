@@ -24,27 +24,27 @@ function tableData(sortedData) {
   document.getElementById("table-body").innerHTML = table_rows;
 }
 
-function sortDataByPercentageChange(type, currency_data, sortBy = true) {
-  for (let i = 0; i < currency_data.length; i++) {
-    for (let j = 1; j < currency_data.length; j++) {
+function sortDataByPercentageChange(type, data, sortBy = true) {
+  for (let i = 0; i < data.length; i++) {
+    for (let j = 1; j < data.length; j++) {
       if (sortBy) {
-        if (currency_data[j][type] > currency_data[j - 1][type]) {
-          let temp = currency_data[j - 1];
-          currency_data[j - 1] = currency_data[j];
-          currency_data[j] = temp;
+        if (data[j][type] > data[j - 1][type]) {
+          let temp = data[j - 1];
+          data[j - 1] = data[j];
+          data[j] = temp;
         }
       }
       else {
-        if (currency_data[j][type] < currency_data[j - 1][type]) {
-          let temp = currency_data[j - 1];
-          currency_data[j - 1] = currency_data[j];
-          currency_data[j] = temp;
+        if (data[j][type] < data[j - 1][type]) {
+          let temp = data[j - 1];
+          data[j - 1] = data[j];
+          data[j] = temp;
         }
       }
 
     }
   }
-  return currency_data;
+  return data;
 }
 
 
@@ -55,8 +55,15 @@ async function fetchData() {
 }
 
 var currency_data;
-async function loadData(type = undefined, sortBy = true) {
-  console.log(currency_data)
+async function loadData(type = undefined, sortBy = true, page_size=10, page_number=1) {
+
+  const url = new URL(window.location.href);
+  const params = new URLSearchParams(url.search);
+  if (params.get("page")){
+    page_number = params.get("page")
+  }
+  // tableData()
+
   if (!currency_data) {
     //to cache the response of API
     currency_data = await fetchData();
@@ -66,11 +73,22 @@ async function loadData(type = undefined, sortBy = true) {
     currency_data = sortDataByPercentageChange(type, currency_data, sortBy);
   }
 
-  tableData(currency_data);
+  const start = page_number*page_size - page_size
+  const end = page_number*page_size 
+  tableData(currency_data.slice(start, end));
 }
 
-document.addEventListener("DOMContentLoaded", function (event) {
-  loadData();
+function buildPagination(page_size=10){
+  page_html = ''
+  for (let index = 1; index <= Math.ceil(currency_data.length/page_size); index++) {
+    page_html += `<a href="/?page=${index}">${index}</a>`
+  }
+  document.getElementById("pagination").innerHTML = page_html;
+}
+
+document.addEventListener("DOMContentLoaded", async function (event) {
+  await loadData();
+  buildPagination();
 });
 
 document.getElementById("price-up-arrow").addEventListener("click", function (event) {
