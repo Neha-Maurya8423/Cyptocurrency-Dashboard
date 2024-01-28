@@ -102,3 +102,16 @@ document.getElementById("price-down-arrow").addEventListener("click", function (
   document.getElementById("price-down-arrow").style.display = "none"
   loadData("price_change_percentage_24h", false);
 });
+function searchFunction() {
+  let display_data = [];
+  const input_value = document.getElementById("search_bar").value.toUpperCase();
+
+  for (let i in currency_data) {
+    if (currency_data[i].name.toUpperCase().indexOf(input_value) > -1) {
+      display_data.push(currency_data[i]);
+    }
+  }
+    tableData(display_data);
+ 
+  }
+  

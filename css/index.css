@@ -96,3 +96,27 @@ table-body {
     padding: 8px 16px;
     text-decoration: none;
 }
+.disabled
+{
+    cursor: not-allowed;
+    color: rgb(135, 129, 171);
+    font-size: 30px;
+    
+}
+.enable{
+    color: rgb(95, 143, 138);
+    font-size: 30px;
+}
+#search_bar
+{ 
+    
+    border: 2px solid rgb(95, 171, 242);
+    border-radius: 5px;
+    border-radius:circle;
+}
+.search
+{
+    display: flexbox;
+    justify-content: center;
+    
+}
