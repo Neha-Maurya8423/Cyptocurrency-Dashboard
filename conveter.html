@@ -1,21 +1,79 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="css/bootstrap.css">
-    <link rel="stylesheet" href="css/convert.css">
-</head>
-<div class="card-container">
-   <div class="card">
-    <h3 class="card-heading/">this is card heading</h3>
-    <p class="card-body">this is card</p>
-   </div>
-</div>
-<body>
-   
-  <script src="js/bootstrap.min.js"></script> 
-  <script src="js/converter.js"></script> 
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bitcoin Price Chart</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap-dark-5@1.1.3/dist/css/bootstrap-night.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/convert.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-rough@1.1.0"></script>
+    <link rel="stylesheet" href="css/bootstrap.css" />
+    <link rel="stylesheet" href="fontawesome-free-6.5.1-web/fontawesome/css/all.css">
+    <link rel="stylesheet" href="css/index.css" />
+    
+  </head>
+  
+
+  <body>
+    
+      <div class="container-fluid pb-5">
+    <div class="row">
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">CyptoCurrency</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="historical_data.html">history</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="conveter.html">Price Graph</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Rate</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="row">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-5">
+          <div class="card">
+            <div class="card-body">
+              <h2>Converted Data</h2>
+              <div style="width: 600px; height: 400px">
+                <div id="convertedData"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="card">
+            <div class="card-body">
+              <h2 id="coin"></h2>
+              <div style="width: 600px; height: 400px">
+                <div style="width: 600px; height: 440px;margin-bottom:-50 px;"><canvas id="myChart" width="450" height="400"></canvas></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="col-sm-1"></div>
+    </div>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/converter.js"></script>
+  </body>
 </html>

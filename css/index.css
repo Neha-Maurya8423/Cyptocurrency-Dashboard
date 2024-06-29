@@ -99,8 +99,8 @@ table-body {
 .disabled
 {
     cursor: not-allowed;
-    color: rgb(135, 129, 171);
-    font-size: 30px;
+    color: rgba(247, 247, 249, 0.897);
+    font-size: 10px;
     
 }
 .enable{
@@ -111,12 +111,15 @@ table-body {
 { 
     
     border: 2px solid rgb(95, 171, 242);
-    border-radius: 5px;
+    border-radius: 25px;
     border-radius:circle;
+    block-size: 30px;
+    size: 40px;
 }
 .search
 {
     display: flexbox;
     justify-content: center;
+    
     
 }
