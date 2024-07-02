@@ -1,6 +1,16 @@
 const page_size = 10; // Number of rows per page
 let currency_data = []; // Variable to hold the data
 
+document.addEventListener("DOMContentLoaded", function() {
+  fetch("header.html")
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+    });
+
+  fetchData();
+});
+
 async function fetchData() {
   let apiUrl =
     "https://api.coingecko.com/api/v3/coins/bitcoin/tickers?exchange_ids=binance&include_exchange_logo=false&page=1&order=trust_score_desc&depth=false";
@@ -8,12 +18,8 @@ async function fetchData() {
   const data = await response.json();
   currency_data = data.tickers;
   buildPagination();
-  const current_page = getCurrentPage();
+  const current_page = parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
   displayTableData(current_page);
-}
-
-function getCurrentPage() {
-  return parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
 }
 
 function displayTableData(page) {
@@ -26,7 +32,7 @@ function displayTableData(page) {
   let tableRows = "";
 
   paginatedData.forEach((ticker) => {
-    const { base, target, last, volume, converted_volume, trade_url } = ticker;
+    const { base, target, last, volume, converted_volume } = ticker;
 
     let row = `<tr>
           <td>${name}</td>
@@ -47,12 +53,10 @@ function buildPagination() {
   let total_pages = Math.ceil(currency_data.length / page_size);
   let page_html = "";
 
-  let current_page = getCurrentPage();
+  let current_page = parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
 
   if (current_page > 1) {
-    page_html += `<a class="enable" href="?page=${
-      current_page - 1
-    }">&laquo;</a>`;
+    page_html += `<a class="enable" href="?page=${current_page - 1}">&laquo;</a>`;
   } else {
     page_html += `<a class="disabled">&laquo;</a>`;
   }
@@ -64,9 +68,7 @@ function buildPagination() {
   }
 
   if (current_page < total_pages) {
-    page_html += `<a class="enable" href="?page=${
-      current_page + 1
-    }">&raquo;</a>`;
+    page_html += `<a class="enable" href="?page=${current_page + 1}">&raquo;</a>`;
   } else {
     page_html += `<a class="disabled">&raquo;</a>`;
   }
@@ -79,12 +81,9 @@ function addPaginationEventListeners() {
   const paginationLinks = document.querySelectorAll("#pagination a.enable");
   paginationLinks.forEach((link) => {
     link.addEventListener("click", (event) => {
-      event.preventDefault();
       const page = new URL(event.target.href).searchParams.get("page");
       history.pushState(null, "", `?page=${page}`);
       displayTableData(parseInt(page));
     });
   });
 }
-
-document.addEventListener("DOMContentLoaded", fetchData);

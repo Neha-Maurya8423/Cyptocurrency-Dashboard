@@ -1,3 +1,11 @@
+document.addEventListener("DOMContentLoaded", function() {
+  fetch("header.html")
+
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById("header-placeholder").innerHTML = data;
+    });
+});
 
 function tableData(sortedData) {
   let table_rows = "";
@@ -14,21 +22,25 @@ console.log(sortedData);
     } else {
       color = "text-danger fa-solid fa-arrow-down";
     }
+    let queryString = `?name=${encodeURIComponent(
+      sortedData[i].name
+    )}&image=${encodeURIComponent(sortedData[i].image)}&change=${encodeURIComponent(
+      change
+    )}&percentage=${encodeURIComponent(percentage)}&id=${encodeURIComponent(id)}`;
 
-    // Ensure id exists and is passed correctly
-    let id = sortedData[i].id || "";
-
-    let table_row = `<tr>
-      <td>${sortedData[i].name}</td>
-      <td><img class="img-fluid currency_symbol" src="${sortedData[i].image}" alt="${sortedData[i].name}"></td>
-      <td>${sortedData[i].max_supply}</td>
-      <td>${sortedData[i].current_price}</td>
-      <td>
-        <div class="sortedData_color ${color}" onclick="passData('${sortedData[i].name}', '${sortedData[i].image}', '${change}', '${percentage}', '${id}')">
-          &nbsp;${change} (${percentage} %)
-        </div>
-      </td>
-    </tr>`;
+    // Use a single anchor tag around the entire row
+    let table_row = `
+      <tr class="sortedData_color" onclick="window.location.href='conveter.html${queryString}'">
+        <td>${sortedData[i].name}</td>
+        <td><img class="img-fluid currency_symbol" src="${sortedData[i].image}" alt="${sortedData[i].name}"></td>
+        <td>${sortedData[i].max_supply}</td>
+        <td>${sortedData[i].current_price}</td>
+        <td>
+          <div class="sortedData_color ${color}">
+            &nbsp;${change} (${percentage} %)
+          </div>
+        </td>
+      </tr>`;
 
     table_rows += table_row;
   }
@@ -36,25 +48,14 @@ console.log(sortedData);
   document.getElementById("table-body").innerHTML = table_rows;
 }
 
-function passData(name, image, change, percentage, id) {
-  // Construct the query string with data parameters
-  let queryString = `?name=${encodeURIComponent(
-    name
-  )}&image=${encodeURIComponent(image)}&change=${encodeURIComponent(
-    change
-  )}&percentage=${encodeURIComponent(percentage)}&id=${encodeURIComponent(id)}`;
-  // Redirect to the converter.html page with the query string
-  window.location.href = "conveter.html" + queryString;
-}
+// function passData(name, image, change, percentage, id) {
+//   // Construct the query string with data parameters
+  
+// }
 
-function getParameterByName(name, url) {
-  if (!url) url = window.location.href;
-  name = name.replace(/[\[\]]/g, "\\$&");
-  var regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
-    results = regex.exec(url);
-  if (!results) return null;
-  if (!results[2]) return "";
-  return decodeURIComponent(results[2].replace(/\+/g, " "));
+function getParameterByName(name, url = window.location.href) {
+  const params = new URL(url).searchParams;
+  return params.get(name) || null;
 }
 
 // Retrieve data from URL parameters
@@ -140,7 +141,7 @@ function buildPagination(page_size = 10) {
     parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
 
   if (current_page > 1) {
-    page_html += `<a class="enable" href="/?page=${
+    page_html += `<a class="enable" href="index.html/?page=${
       current_page - 1
     }">&laquo;</a>`;
   } else {
@@ -149,13 +150,13 @@ function buildPagination(page_size = 10) {
 
   // Add page numbers
   for (let index = 1; index <= total_pages; index++) {
-    page_html += `<a href="/?page=${index}"${
+    page_html += `<a href="index.html?page=${index}"${
       index === current_page ? ' class="active"' : ""
     }>${index}</a>`;
   }
 
   if (current_page < total_pages) {
-    page_html += `<a class="enable" href="/?page=${
+    page_html += `<a class="enable" href="index.html?page=${
       current_page + 1
     }">&raquo;</a>`;
   } else {
@@ -163,7 +164,9 @@ function buildPagination(page_size = 10) {
   }
 
   document.getElementById("pagination").innerHTML = page_html;
+  
 }
+
 
 document.addEventListener("DOMContentLoaded", async function (event) {
   await loadData();
@@ -197,6 +200,5 @@ document
     }
     tableData(display_data);
   }
-  
   
   

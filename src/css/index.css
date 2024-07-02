@@ -49,6 +49,7 @@
     background-color: rgb(220, 215, 224);
 }
 
+
 .nav-item {
     margin: 10px;
     padding: 20px 20px 19px;
@@ -63,9 +64,10 @@
 }
 
 
-table-body {
+.table-body {
     border-bottom: 1px solid #ebeef2;
 }
+
 
 #table-body div{
     text-align: center;
@@ -113,18 +115,30 @@ table-body {
     border: 2px solid rgb(95, 171, 242);
     border-radius: 25px;
     border-radius:circle;
-    block-size: 30px;
-    size: 40px;
+    block-size: 50px;
+    size: 0px;
+    
+    
 }
 .search
 {
+    
     display: flexbox;
     justify-content: center;
-    
-    
+    width: 
+    300px;
 }
 .navbar-brand
 {
     font-weight: 1000;
     color:rgb(1, 29, 65);
 } 
+.sortedData_color{
+  
+    cursor: pointer;
+}
+/* .nav-link{
+    background-color: rgba(145, 235, 237, 0.189);
+    color: rgba(63, 1, 59, 0.9);
+} */
+
