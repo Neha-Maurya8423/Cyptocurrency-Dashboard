@@ -48,11 +48,6 @@ console.log(sortedData);
   document.getElementById("table-body").innerHTML = table_rows;
 }
 
-// function passData(name, image, change, percentage, id) {
-//   // Construct the query string with data parameters
-  
-// }
-
 function getParameterByName(name, url = window.location.href) {
   const params = new URL(url).searchParams;
   return params.get(name) || null;
@@ -141,7 +136,7 @@ function buildPagination(page_size = 10) {
     parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
 
   if (current_page > 1) {
-    page_html += `<a class="enable" href="index.html/?page=${
+    page_html += `<a class="enable" href="index.html?page=${
       current_page - 1
     }">&laquo;</a>`;
   } else {
