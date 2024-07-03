@@ -116,17 +116,17 @@
     border-radius: 25px;
     border-radius:circle;
     block-size: 50px;
-    size: 0px;
+    margin-right: 40px;
     
     
 }
 .search
 {
     
-    display: flexbox;
+    display:flexbox;
     justify-content: center;
-    width: 
-    300px;
+    width: 500px;
+   
 }
 .navbar-brand
 {
@@ -137,8 +137,6 @@
   
     cursor: pointer;
 }
-/* .nav-link{
-    background-color: rgba(145, 235, 237, 0.189);
-    color: rgba(63, 1, 59, 0.9);
-} */
-
+.icon{
+    margin-top: 3px;
+}

@@ -1,5 +1,6 @@
 const page_size = 10; // Number of rows per page
 let currency_data = []; // Variable to hold the data
+let filtered_data = []; // Variable to hold filtered data
 
 document.addEventListener("DOMContentLoaded", function() {
   fetch("header.html")
@@ -17,6 +18,7 @@ async function fetchData() {
   const response = await fetch(apiUrl);
   const data = await response.json();
   currency_data = data.tickers;
+  filtered_data = currency_data; // Initialize filtered data to full dataset
   buildPagination();
   const current_page = parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
   displayTableData(current_page);
@@ -25,7 +27,7 @@ async function fetchData() {
 function displayTableData(page) {
   const start = (page - 1) * page_size;
   const end = start + page_size;
-  const paginatedData = currency_data.slice(start, end);
+  const paginatedData = filtered_data.slice(start, end); // Use filtered data
   const tableBody = document.getElementById("table-body");
   const name = "Bitcoin"; // Assuming name is Bitcoin
 
@@ -50,7 +52,7 @@ function displayTableData(page) {
 }
 
 function buildPagination() {
-  let total_pages = Math.ceil(currency_data.length / page_size);
+  let total_pages = Math.ceil(filtered_data.length / page_size); // Use filtered data
   let page_html = "";
 
   let current_page = parseInt(new URLSearchParams(window.location.search).get("page")) || 1;
@@ -86,4 +88,12 @@ function addPaginationEventListeners() {
       displayTableData(parseInt(page));
     });
   });
+}
+
+function searchFunction() {
+  const inputValue = document.getElementById("search_bar").value.toUpperCase();
+  filtered_data = currency_data.filter(currency => currency.base.toUpperCase().includes(inputValue));
+  
+  buildPagination(); // Rebuild pagination for the filtered data
+  displayTableData(1); // Display the first page of filtered data
 }
