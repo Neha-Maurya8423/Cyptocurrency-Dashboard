@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Cryptocurrency Watchlist" />
+    <title>Cryptocurrency Watchlist</title>
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    />
+    <link rel="stylesheet" href="css/watchlist.css" />
+    <link rel="stylesheet" href="css/index.css" />
+    <style>
+        .watch-link
+        {
+            text-decoration: underline;
+        }
+    </style>
+  </head>
+  <body>
+    <div class="container-fluid pb-5">
+      <div id="header-placeholder"></div>
+      <!-- <h2 class="mt-4 mb-4">Your Watchlist</h2> -->
+      <table class="table" width="100%">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Price</th>
+            <th>Change</th>
+            <th>Remove</th>
+          </tr>
+        </thead>
+        <tbody id="watchlist-body"></tbody>
+      </table>
+    </div>
+    <script src="js/watchlist.js"></script>
+  </body>
+</html>

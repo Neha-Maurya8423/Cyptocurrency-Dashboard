@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 function tableData(sortedData) {
   let table_rows = "";
-console.log(sortedData);
+
   for (let i in sortedData) {
     let color;
     let change = parseFloat(sortedData[i].price_change_24h).toFixed(2);
@@ -39,9 +39,14 @@ console.log(sortedData);
           <div class="sortedData_color ${color}">
             &nbsp;${change} (${percentage} %)
           </div>
+        </td>  
+<td>
+          <button class="btn btn-success btn-sm" onclick="addToWatchlist('${sortedData[i].id}', event)">Add to Watchlist</button>
         </td>
-      </tr>`;
 
+      </tr>`
+      
+      ;
     table_rows += table_row;
   }
 
@@ -195,5 +200,20 @@ document
     }
     tableData(display_data);
   }
-  
+  // Add this function to script.js
+function addToWatchlist(id) {
+  const item=currency_data.find(coin=>coin.id===id);
+  if(item)
+    {
+      let watchlist=JSON.parse(localStorage.getItem("watchlist"))||[];
+      if(!watchlist.find(existingItem=>existingItem.id===id))
+        { 
+          watchlist.push(item);
+          localStorage
+          .setItem('watchlist',JSON.stringify(watchlist));
+        }
+    }
+  }
+
+
   

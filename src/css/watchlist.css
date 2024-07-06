@@ -1,0 +1,28 @@
+/* watchlist.css */
+.watchlist-item {
+    cursor: pointer;
+  }
+  
+  .watchlist-item:hover {
+    background-color: #f0f0f0;
+  }
+  #watchlist-body div{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    height: 100%;
+    align-items: center;
+}
+
+#watchlist-body td{
+    height: 50px;
+}
+
+#watchlist-body img{
+    height: 50px;
+    width: 50px;
+}
+.img-fluid
+{
+    height: 70px;
+}
