@@ -200,7 +200,6 @@ document
     }
     tableData(display_data);
   }
-  // Add this function to script.js
 function addToWatchlist(id) {
   const item=currency_data.find(coin=>coin.id===id);
   if(item)
